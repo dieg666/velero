@@ -275,7 +275,7 @@ func (r *backupQueueReconciler) Reconcile(ctx context.Context, req ctrl.Request)
 			log.Infof("%v concurrent backups are already running, leaving %v queued", r.concurrentBackups, backup.Name)
 			return ctrl.Result{}, nil
 		}
-		if r.backupTracker.Contains(backup.Namespace, backup.Name) {
+		if r.backupTracker.IsTracked(backup.Namespace, backup.Name) {
 			log.Debugf("Backup %v is already running, skipping", backup.Name)
 			return ctrl.Result{}, nil
 		}
